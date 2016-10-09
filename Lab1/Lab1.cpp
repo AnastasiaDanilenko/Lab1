@@ -1,4 +1,4 @@
-// Lab1.cpp: определяет точку входа для приложения.
+п»ї// Lab1.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РїСЂРёР»РѕР¶РµРЅРёСЏ.
 //
 
 #include "stdafx.h"
@@ -6,12 +6,13 @@
 
 #define MAX_LOADSTRING 100
 
-// Глобальные переменные:
-HINSTANCE hInst;                                // текущий экземпляр
-WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
-WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
-
-// Отправить объявления функций, включенных в этот модуль кода:
+HANDLE res;
+// Р“Р»РѕР±Р°Р»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ:
+HIMAGELIST ImageList = NULL;
+HINSTANCE hInst;                                // С‚РµРєСѓС‰РёР№ СЌРєР·РµРјРїР»СЏСЂ
+WCHAR szTitle[MAX_LOADSTRING];                  // РўРµРєСЃС‚ СЃС‚СЂРѕРєРё Р·Р°РіРѕР»РѕРІРєР°
+WCHAR szWindowClass[MAX_LOADSTRING];            // РёРјСЏ РєР»Р°СЃСЃР° РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
+// РћС‚РїСЂР°РІРёС‚СЊ РѕР±СЉСЏРІР»РµРЅРёСЏ С„СѓРЅРєС†РёР№, РІРєР»СЋС‡РµРЅРЅС‹С… РІ СЌС‚РѕС‚ РјРѕРґСѓР»СЊ РєРѕРґР°:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -25,14 +26,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: разместите код здесь.
+    // TODO: СЂР°Р·РјРµСЃС‚РёС‚Рµ РєРѕРґ Р·РґРµСЃСЊ.
 
-    // Инициализация глобальных строк
+    // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅС‹С… СЃС‚СЂРѕРє
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_LAB1, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
-    // Выполнить инициализацию приложения:
+    // Р’С‹РїРѕР»РЅРёС‚СЊ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЋ РїСЂРёР»РѕР¶РµРЅРёСЏ:
     if (!InitInstance (hInstance, nCmdShow))
     {
         return FALSE;
@@ -42,7 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // Цикл основного сообщения:
+    // Р¦РёРєР» РѕСЃРЅРѕРІРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
@@ -55,13 +56,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
-
-
-//
-//  ФУНКЦИЯ: MyRegisterClass()
-//
-//  НАЗНАЧЕНИЕ: регистрирует класс окна.
-//
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
@@ -83,52 +77,93 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-//
-//   ФУНКЦИЯ: InitInstance(HINSTANCE, int)
-//
-//   НАЗНАЧЕНИЕ: сохраняет обработку экземпляра и создает главное окно.
-//
-//   КОММЕНТАРИИ:
-//
-//        В данной функции дескриптор экземпляра сохраняется в глобальной переменной, а также
-//        создается и выводится на экран главное окно программы.
-//
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance; // Сохранить дескриптор экземпляра в глобальной переменной
+   hInst = hInstance; // РЎРѕС…СЂР°РЅРёС‚СЊ РґРµСЃРєСЂРёРїС‚РѕСЂ СЌРєР·РµРјРїР»СЏСЂР° РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
    if (!hWnd)
    {
       return FALSE;
    }
-
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
 }
 
-//
-//  ФУНКЦИЯ: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  НАЗНАЧЕНИЕ:  обрабатывает сообщения в главном окне.
-//
-//  WM_COMMAND — обработать меню приложения
-//  WM_PAINT — отрисовать главное окно
-//  WM_DESTROY — отправить сообщение о выходе и вернуться
-//
-//
+HWND CreateToolbarFromResource(HWND hWndParent)
+{
+	// Declare and initialize local constants.
+	const int ImageListID = 0;
+	const int numButtons = 10;
+	int bitmapSize = 128;
+
+	const DWORD buttonStyles = BTNS_AUTOSIZE;
+
+	// Create the toolbar.
+	HWND hWndToolbar = CreateWindowEx(0, TOOLBARCLASSNAME, NULL,
+		WS_CHILD | TBSTYLE_WRAPABLE, 0, 0, 0, 0,
+		hWndParent, NULL, hInst, NULL);
+	if (hWndToolbar == NULL)
+		return NULL;
+
+	// Create the image list.
+	//ImageList = ImageList_Create(bitmapSize, bitmapSize,   // Dimensions of individual bitmaps.
+		//NULL,   // Ensures transparent background.
+		//numButtons, 0);
+
+	// Set the image list.
+	SendMessage(hWndToolbar, TB_SETIMAGELIST,
+		(WPARAM)ImageListID,
+		(LPARAM)ImageList);
+
+	// Load the button images.
+	SendMessage(hWndToolbar, TB_LOADIMAGES,
+		(WPARAM)IDB_STD_SMALL_COLOR,
+		(LPARAM)HINST_COMMCTRL);
+
+	int iNew = SendMessage(hWndToolbar, TB_ADDSTRING,
+		(WPARAM)hInst, (LPARAM)IDS_NEW);
+
+	// Initialize button info.
+	// IDM_NEW, IDM_OPEN, and IDM_SAVE are application-defined command constants.
+	std::vector<std::string> buttons = {"PEN", "LINE", "INCLINE", "ELLIPSE", "RECTANGLE", "POLYGON", "COLOR", "ZOOM", "WEIGHT", "TEXT"};
+	TBBUTTON tbButtons[numButtons];
+	for (int i = 0; i < numButtons; i++)
+	{
+		tbButtons[i].iBitmap = i;
+		tbButtons[i].fsStyle = buttonStyles;
+		tbButtons[i].fsState = TBSTATE_ENABLED;
+		tbButtons[i].iString = (INT_PTR)buttons[i].data();
+		tbButtons[i].idCommand = IDM_PEN + i;
+	}
+
+	// Add buttons.
+	SendMessage(hWndToolbar, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+	SendMessage(hWndToolbar, TB_ADDBUTTONS, (WPARAM)numButtons, (LPARAM)&tbButtons);
+
+	// Resize the toolbar, and then show it.
+	SendMessage(hWndToolbar, TB_AUTOSIZE, 0, 0);
+	ShowWindow(hWndToolbar, TRUE);
+
+	return hWndToolbar;
+}
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	case WM_CREATE: {
+		CreateToolbarFromResource(hWnd);
+		return 0;
+	}
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
+            // Р Р°Р·РѕР±СЂР°С‚СЊ РІС‹Р±РѕСЂ РІ РјРµРЅСЋ:
             switch (wmId)
             {
             case IDM_ABOUT:
@@ -146,11 +181,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
+            // TODO: Р”РѕР±Р°РІСЊС‚Рµ СЃСЋРґР° Р»СЋР±РѕР№ РєРѕРґ РїСЂРѕСЂРёСЃРѕРІРєРё, РёСЃРїРѕР»СЊР·СѓСЋС‰РёР№ HDC...
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
+		//ImageList_Destroy(ImageList);
         PostQuitMessage(0);
         break;
     default:
@@ -159,7 +195,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// Обработчик сообщений для окна "О программе".
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕРѕР±С‰РµРЅРёР№ РґР»СЏ РѕРєРЅР° "Рћ РїСЂРѕРіСЂР°РјРјРµ".
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);

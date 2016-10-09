@@ -163,8 +163,22 @@
     <ResourceCompile Include="Lab1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Brush.bmp" />
+    <Image Include="brush.ico" />
+    <Image Include="Circle.bmp" />
+    <Image Include="ellipse.ico" />
+    <Image Include="incline.ico" />
+    <Image Include="Irregular.bmp" />
     <Image Include="Lab1.ico" />
+    <Image Include="Polygon.bmp" />
+    <Image Include="polygon.ico" />
+    <Image Include="Rectangle.bmp" />
+    <Image Include="rectangle.ico" />
     <Image Include="small.ico" />
+    <Image Include="Text.bmp" />
+    <Image Include="text.ico" />
+    <Image Include="Zoom.bmp" />
+    <Image Include="zoom.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

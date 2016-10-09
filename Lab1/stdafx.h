@@ -15,7 +15,15 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#include <commctrl.h>
+#include <string.h>
+#include <wchar.h>
 #include <tchar.h>
+#include <commdlg.h>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <map>
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

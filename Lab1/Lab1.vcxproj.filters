@@ -51,5 +51,47 @@
     <Image Include="Lab1.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Brush.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Circle.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Irregular.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Polygon.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Rectangle.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Text.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Zoom.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="brush.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="ellipse.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="incline.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="polygon.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="rectangle.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="text.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="zoom.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
