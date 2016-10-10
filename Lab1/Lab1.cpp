@@ -111,7 +111,7 @@ HWND CreateToolbarFromResource(HWND hWndParent)
 
 	// Create the image list.
 	//ImageList = ImageList_Create(bitmapSize, bitmapSize,   // Dimensions of individual bitmaps.
-		//NULL,   // Ensures transparent background.
+		//ILC_COLOR16 | ILC_MASK,   // Ensures transparent background.
 		//numButtons, 0);
 
 	// Set the image list.
@@ -129,7 +129,7 @@ HWND CreateToolbarFromResource(HWND hWndParent)
 
 	// Initialize button info.
 	// IDM_NEW, IDM_OPEN, and IDM_SAVE are application-defined command constants.
-	std::vector<std::string> buttons = {"PEN", "LINE", "INCLINE", "ELLIPSE", "RECTANGLE", "POLYGON", "COLOR", "ZOOM", "WEIGHT", "TEXT"};
+	std::vector<std::wstring> buttons = {L"Карандаш", L"Линия", L"Ломаная", L"Эллипс", L"Прямоугольник", L"Полигон", L"Цвет", L"Масштаб", L"Толщина", L"Текст"};
 	TBBUTTON tbButtons[numButtons];
 	for (int i = 0; i < numButtons; i++)
 	{
@@ -195,7 +195,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// Обработчик сообщений для окна "О программе".
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
