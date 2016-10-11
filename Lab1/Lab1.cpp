@@ -8,7 +8,14 @@
 
 HANDLE res;
 // Глобальные переменные:
+
 HIMAGELIST ImageList = NULL;
+Shape* currentShape = NULL;
+int shapeId = 0;
+POINTS start;
+POINTS end;
+HDC g_hdc;
+bool drawing;
 HINSTANCE hInst;                                // текущий экземпляр
 WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
 WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
@@ -44,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
     // Цикл основного сообщения:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (GetMessage(&msg, nullptr, 0, 0) > 0)
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
@@ -62,7 +69,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
+    wcex.style          = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;;
     wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
@@ -152,13 +159,88 @@ HWND CreateToolbarFromResource(HWND hWndParent)
 }
 
 
+
+COLORREF CheckColor()
+{
+	return RGB(0,0,0,0);
+}
+
+int CheckWeight()
+{
+	return 1;
+}
+
+void AddPoints(LPARAM lparam)
+{
+	//points = (POINTS*)realloc(points, sizeof(POINT));
+	
+}
+
+void InitializeVariables()
+{
+	start.x = -1;
+	start.y = 0;
+	end.x = 0;
+	end.y = 0;
+	drawing = false;
+	//points = NULL;
+}
+
+Shape* GetShape()
+{
+	Shape* shape;
+	switch (shapeId)
+	{
+		case IDM_ELLIPSE:
+			shape = new SEllipse();
+			break;
+		case IDM_LINE:
+			shape = new SLine();
+			break;
+		case IDM_RECTANGLE:
+			shape = new SRectangle();
+			break;
+		case IDM_TEXT:
+			shape = new SText();
+			break;
+		case IDM_POLYGON:
+			shape = new SPolygon();
+			break;
+		case IDM_POLYGONLINE:
+			shape = new SPolygonline();
+			break;
+	}
+	return shape;
+}
+
+void MakeArray()
+{
+	POINT* sm = (POINT*)malloc(sizeof(POINT*));
+	sm[0].x = start.x;
+	sm[1].x = end.x;
+	sm[0].y = start.y;
+	sm[1].y = end.y;
+	currentShape->SetCoordinates(sm);
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
 	case WM_CREATE: {
 		CreateToolbarFromResource(hWnd);
+		g_hdc = GetDC(hWnd);
+		InitializeVariables();
 		return 0;
+	}
+	case WM_GETMINMAXINFO:
+	{
+		MINMAXINFO *minMax = reinterpret_cast<MINMAXINFO*>(lParam);
+		minMax->ptMinTrackSize.x = 650;
+		minMax->ptMinTrackSize.y = 450;
+		minMax->ptMaxTrackSize.x = 1000;
+		minMax->ptMaxTrackSize.y = 750;
+		break;
 	}
     case WM_COMMAND:
         {
@@ -169,8 +251,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+			case IDM_LINE:
+			case IDM_ELLIPSE:
+			case IDM_POLYGON:
+			case IDM_RECTANGLE:
+			case IDM_PEN:
+			case IDM_TEXT:
+			case IDM_POLYGONLINE:
+			{
+				shapeId = wmId;
+				drawing = true;
+				break;
+			}
             case IDM_EXIT:
-                DestroyWindow(hWnd);
+				SendMessage(hWnd, WM_DESTROY, 0, 0);
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -179,16 +273,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
-            EndPaint(hWnd, &ps);
+
+			break;
         }
-        break;
+	case WM_MOVE:
+	{
+		break;
+	}
     case WM_DESTROY:
-		//ImageList_Destroy(ImageList);
         PostQuitMessage(0);
         break;
+	case WM_LBUTTONDOWN:
+	{
+		if (drawing == true)
+		{
+			if (start.x == -1)
+			{
+				start = MAKEPOINTS(lParam);
+			}
+			else
+			{
+				if ((shapeId != 32772) && (shapeId != 32773))
+				{
+					end = MAKEPOINTS(lParam);
+					currentShape = GetShape();
+					MakeArray();
+					HDC hdc = GetDC(hWnd);
+					currentShape->Paint(hdc);
+					start.x = -1;
+				}
+			}
+		}
+			break;
+		}
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

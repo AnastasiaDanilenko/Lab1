@@ -24,6 +24,13 @@
 #include <vector>
 #include <string>
 #include <map>
-
+#include "Shape.h"
+#include "Line.h"
+#include "Ellipse.h"
+#include "Polygon.h"
+#include "Rectangle.h"
+#include "Text.h"
+#include "Pen.h"
+#include "Polygonline.h"
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
