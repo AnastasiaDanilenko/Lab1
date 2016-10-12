@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
-SPolygonline::SPolygonline(int type, COLORREF color, int fnstyle, int width, POINT* newpoints) : Shape(type, color, fnstyle, width, points)
+SPolygonline::SPolygonline(COLORREF color, int width, COLORREF brushColor) : Shape(color, width, brushColor)
 {
-	points = newpoints;
+	
 }
 
 SPolygonline::~SPolygonline()

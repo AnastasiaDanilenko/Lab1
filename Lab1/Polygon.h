@@ -2,7 +2,7 @@
 class SPolygon : public Shape
 {
 public:
-	SPolygon(int, COLORREF, int, int, POINT*);
+	SPolygon(COLORREF, int, COLORREF);
 	~SPolygon();
 	void Paint(HDC);
 };

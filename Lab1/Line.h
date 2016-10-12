@@ -2,7 +2,7 @@
 class SLine : public Shape
 {
 	public:
-		SLine(int, COLORREF, int, int, POINT*);
+		SLine(COLORREF, int, COLORREF);
 		~SLine();
 		void Paint(HDC);
 };

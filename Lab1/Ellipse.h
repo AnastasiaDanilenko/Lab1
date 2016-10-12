@@ -2,7 +2,7 @@
 class SEllipse : public Shape
 {
 public:
-	SEllipse(int, COLORREF, int, int, POINT*);
+	SEllipse(COLORREF, int, COLORREF);
 	~SEllipse();
 	void Paint(HDC);
 };

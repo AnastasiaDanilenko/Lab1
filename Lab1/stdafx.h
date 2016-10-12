@@ -16,6 +16,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <commctrl.h>
+#include <CommCtrl.h>
 #include <string.h>
 #include <wchar.h>
 #include <tchar.h>

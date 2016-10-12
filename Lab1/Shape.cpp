@@ -12,21 +12,14 @@
 		points = newPoints;
 	}
 
-	Shape::Shape(int type, COLORREF color, int fnstyle, int width, POINT* newPoints)
+	Shape::Shape(COLORREF color, int width, COLORREF brushColor)
 	{
 		width = width;
-		points = newPoints;
-		if (type == 0)
-		{
-			pen = CreatePen(fnstyle, width, color);
-		}
+		pen = CreatePen(PS_SOLID, width, color);
+		if (brushColor == 0)
+			brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		else
-		{
-			if (fnstyle == 0)
-				brush = CreateSolidBrush(color);
-			else
-				brush = CreateHatchBrush(fnstyle, color);
-		}
+			brush = CreateSolidBrush(brushColor);
 	}
 
 	Shape::~Shape()

@@ -2,7 +2,7 @@
 class SRectangle : public Shape
 {
 public:
-	SRectangle(int, COLORREF, int, int, POINT*);
+	SRectangle(COLORREF, int, COLORREF);
 	~SRectangle();
 	void Paint(HDC);
 };

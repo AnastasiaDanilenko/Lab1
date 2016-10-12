@@ -1,8 +1,15 @@
 #pragma once
-class SText : public Shape
+class SText
 {
 public:
-	SText(int, COLORREF, int, int, POINT*);
+	SText(COLORREF, int, COLORREF);
 	~SText();
 	void Paint(HDC);
+private:
+	COLORREF textColor, brushColor;
+	LOGFONT font;
+	HFONT hFont;
+	POINTS* points;
+	std::string str;
+	int count = 0;
 };

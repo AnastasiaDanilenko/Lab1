@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
-	SLine::SLine(int type, COLORREF color, int fnstyle, int width, POINT* newpoints): Shape(type, color, fnstyle, width, points)
+	SLine::SLine(COLORREF color, int width, COLORREF brushColor): Shape(color, width, brushColor)
 	{
-		points = newpoints;
+		
 	}
 
 	SLine::~SLine()

@@ -92,6 +92,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,6 +151,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Pen.h" />
     <ClInclude Include="Polygon.h" />
+    <ClInclude Include="Polygonline.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shape.h" />
@@ -163,6 +165,7 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Pen.cpp" />
     <ClCompile Include="Polygon.cpp" />
+    <ClCompile Include="Polygonline.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="stdafx.cpp">
